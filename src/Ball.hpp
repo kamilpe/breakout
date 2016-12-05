@@ -13,7 +13,7 @@ public:
         Move
     };
 
-    Ball(SDL_Renderer *renderer, const Pad &pad);
+    Ball(SDL_Renderer *renderer, const Pad &pad, const SDL_Rect &range);
 
     SDL_Rect getRect() const override;
     void updatePosition() override;
@@ -25,10 +25,11 @@ private:
     int angle_;
     float radian_;
     bool isLost_;
-
+    
     Timer timer_;
     Action action_;
     const Pad &pad_;
+    const SDL_Rect &range_;
 
     bool checkCollisions();
     bool checkArenaCollisions(const SDL_Rect &ball);

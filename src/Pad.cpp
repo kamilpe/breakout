@@ -7,18 +7,19 @@ namespace
     const auto FINAL_SPEED = Timer::Miliseconds(3);
 }
 
-Pad::Pad(SDL_Renderer *renderer)
-    : x_(200)
-    , action_(Action::None)
+Pad::Pad(SDL_Renderer *renderer, const SDL_Rect &range)
+    : range_(range)
 {
     loadTexture(renderer, "pad.png");
+    action_ = Action::None;
+    x_ = (range_.w / 2) - (width_ / 2);
 }
 
 SDL_Rect Pad::getRect() const
 {
     return
     {
-        x_ - (width_ / 2),
+        x_,
         500 - height_ - 10,
         width_,
         height_
@@ -107,4 +108,14 @@ void Pad::updatePosition()
         break;
     }
     }
+
+    limiter();
+}
+
+void Pad::limiter()
+{
+    if (x_ < range_.x)
+        x_ = range_.x;
+    else if (x_ + width_ > range_.x + range_.w)
+        x_ = range_.x + range_.w - width_;
 }

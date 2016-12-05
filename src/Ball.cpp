@@ -2,12 +2,13 @@
 #include "Bounce.hpp"
 #include <cstdlib>
 
-Ball::Ball(SDL_Renderer *renderer, const Pad &pad)
+Ball::Ball(SDL_Renderer *renderer, const Pad &pad, const SDL_Rect &range)
     : x_(100)
     , y_(200)
+    , isLost_(false)
     , action_(Action::Move)
     , pad_(pad)
-    , isLost_(false)
+    , range_(range)
 {
     loadTexture(renderer, "ball.png");
     timer_.start(Timer::Miliseconds(5));
@@ -60,22 +61,22 @@ bool Ball::checkArenaCollisions(const SDL_Rect &ball)
 {
     Bounce bounce{angle_};
         
-    if (ball.x < 0)
+    if (ball.x < range_.x)
     {
         setAngle(bounce.hitToLeft());
         return true;
     }
-    else if (ball.x + ball.h > 400)
+    else if (ball.x + ball.h > range_.x + range_.w)
     {
         setAngle(bounce.hitToRight());
         return true;
     }
-    else if (ball.y < 0)
+    else if (ball.y < range_.y)
     {
         setAngle(bounce.hitToTop());
         return true;
     }
-    else if (ball.y + ball.h > 500)
+    else if (ball.y + ball.h > range_.x + range_.h)
     {
         isLost_ = true;
     }

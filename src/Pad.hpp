@@ -16,7 +16,7 @@ public:
         
     };
 
-    Pad(SDL_Renderer *renderer);
+    Pad(SDL_Renderer *renderer, const SDL_Rect &range);
     SDL_Rect getRect() const override;
     void updatePosition() override;
     
@@ -27,4 +27,7 @@ private:
     int x_;
     Action action_;
     Timer timer_;
+    const SDL_Rect &range_;
+
+    void limiter();
 };

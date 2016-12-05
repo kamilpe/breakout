@@ -31,5 +31,5 @@ int Bounce::hitToPad(const SDL_Rect &ball, const SDL_Rect &pad)
     if (point < 0) point = 0;
     else if (point > pad.w) point = pad.w;
     
-    return 190 + (160 * point) / pad.w;
+    return 230 + (120 * point) / pad.w;
 }

@@ -1,4 +1,4 @@
-#include "Pad.hpp"
+#include "Playground.hpp"
 #include "GameInput.hpp"
 #include "GameScreen.hpp"
 #include "Timer.hpp"
@@ -21,7 +21,7 @@ bool initSDL()
         return false;
     }
 
-    window = SDL_CreateWindow("Hello World!", 100, 100, 400, 500, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Breakout", 100, 100, 800, 600, SDL_WINDOW_SHOWN);
     if (window == nullptr){
         std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         return false;
@@ -55,10 +55,9 @@ int main(int argc, char **argv)
 {
     initSDL();
 
-    Pad pad{renderer};
-    Ball ball{renderer, pad};
-    GameInput input{pad};
-    GameScreen screen{renderer, pad, ball};
+    Playground playground{renderer, SDL_Rect{50, 50, 600, 500}};
+    GameScreen screen{renderer, playground};
+    GameInput input{playground.getPad()};
 
     SDL_Event event;
     bool quit = false;
@@ -80,8 +79,7 @@ int main(int argc, char **argv)
 
         Timer::updateTicks();
         input.process(event);
-        pad.updatePosition();
-        ball.updatePosition();        
+        playground.update();
         screen.render();
     }
 

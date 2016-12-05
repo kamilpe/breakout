@@ -19,10 +19,14 @@ file(GLOB SOURCES
   src/GameInput.hpp
   src/GameScreen.cpp
   src/GameScreen.hpp
+  src/Playground.cpp
+  src/Playground.hpp
   src/Pad.cpp
   src/Pad.hpp
   src/Sprite.cpp
   src/Sprite.hpp
+  src/Brick.cpp
+  src/Brick.hpp
   src/Timer.cpp
   src/Timer.hpp
   )
