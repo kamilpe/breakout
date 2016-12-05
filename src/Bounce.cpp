@@ -12,7 +12,7 @@ int Bounce::hitToLeft()
 
 int Bounce::hitToRight()
 {
-    return LEFT_ANGLE - (RIGHT_ANGLE + angle_);    
+    return LEFT_ANGLE + (RIGHT_ANGLE - angle_);    
 }
 
 int Bounce::hitToTop()
@@ -22,7 +22,7 @@ int Bounce::hitToTop()
 
 int Bounce::hitToBottom()
 {
-    return TOP_ANGLE - (BOTTOM_ANGLE + angle_);
+    return TOP_ANGLE + (BOTTOM_ANGLE - angle_);
 }
 
 int Bounce::hitToPad(const SDL_Rect &ball, const SDL_Rect &pad)
