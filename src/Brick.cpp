@@ -2,4 +2,5 @@
 
 Brick::Brick(SDL_Renderer *renderer)
 {
+    
 }
