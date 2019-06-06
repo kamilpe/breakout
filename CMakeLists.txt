@@ -31,8 +31,6 @@ file(GLOB SOURCES
   src/Timer.hpp
   )
 
-add_executable(${PROJECT_NAME} ${SOURCES} src/main.cpp)
-
 include_directories(
   ${SDL2_INCLUDE_DIRS}
   ${SDL2IMAGE_INCLUDE_DIRS}
@@ -40,11 +38,27 @@ include_directories(
   ${SDL2MIXER_INCLUDE_DIRS}
   )
 
+link_directories(
+  ${SDL2_LIBRARY_DIRS}
+  ${SDL2IMAGE_LIBRARY_DIRS}
+  ${SDL2TTF_LIBRARY_DIRS}
+  ${SDL2MIXER_LIBRARY_DIRS}
+  )
+
+add_executable(${PROJECT_NAME} ${SOURCES} src/main.cpp)
+
 target_link_libraries(${PROJECT_NAME}
   ${SDL2_LIBRARIES}
   ${SDL2IMAGE_LIBRARIES}
   ${SDL2TTF_LIBRARIES}
   ${SDL2MIXER_LIBRARIES}
+  )
+
+target_compile_options(${PROJECT_NAME} PUBLIC
+  ${SDL2_CFLASGS_OTHER}
+  ${SDL2IMAGE_CFLAGS_OTHER}
+  ${SDL2TTF_CFLAGS_OTHER}
+  ${SDL2MIXER_CFLAGS_OTHER}
   )
 
 if (BUILD_TESTS)

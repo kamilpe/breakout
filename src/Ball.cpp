@@ -1,6 +1,7 @@
 #include "Ball.hpp"
 #include "Bounce.hpp"
 #include <cstdlib>
+#include <cmath>
 
 Ball::Ball(SDL_Renderer *renderer, const Pad &pad, const SDL_Rect &range)
     : x_(100)
