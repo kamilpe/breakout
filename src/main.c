@@ -1,42 +1,35 @@
-#include "Playground.hpp"
-#include "GameInput.hpp"
-#include "GameScreen.hpp"
-#include "Timer.hpp"
-
-#include <iostream>
+#include <stdio.h>
+#include <stdbool.h>
 #include <SDL.h>
 #include <SDL_image.h>
 
-namespace
-{
-    SDL_Window *window = nullptr;
-    SDL_Renderer *renderer = nullptr;
-}
+SDL_Window *window;
+SDL_Renderer *renderer;
 
 bool initSDL()
 {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    if (SDL_Init(SDL_INIT_VIDEO))
     {
-        std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
+        printf("SDL_Init Error: %s\n", SDL_GetError());
         return false;
     }
 
     window = SDL_CreateWindow("Breakout", 100, 100, 800, 600, SDL_WINDOW_SHOWN);
-    if (window == nullptr){
-        std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+    if (!window){
+        printf("SDL_CreateWindow Error: %s\n", SDL_GetError());
         return false;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr){
-        std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+    if (!renderer){
+        printf("SDL_CreateRenderer Error: %s\n", SDL_GetError());
         return false;
     }
 
     int flags=IMG_INIT_JPG|IMG_INIT_PNG;
     if(IMG_Init(flags) != flags)
     {
-        std::cout << "IMG_Init: Failed to init required jpg and png support";
+        printf("IMG_Init: Failed to init required jpg and png support\n");
     }
     return true;
 }
@@ -54,10 +47,6 @@ void closeSDL()
 int main(int argc, char **argv)
 {
     initSDL();
-
-    Playground playground{renderer, SDL_Rect{50, 50, 600, 500}};
-    GameScreen screen{renderer, playground};
-    GameInput input{playground.getPad()};
 
     SDL_Event event;
     bool quit = false;
@@ -77,10 +66,10 @@ int main(int argc, char **argv)
             }
         }
 
-        Timer::updateTicks();
-        input.process(event);
-        playground.update();
-        screen.render();
+        //Timer::updateTicks();
+        //input.process(event);
+        //playground.update();
+        //screen.render();
     }
 
     closeSDL();

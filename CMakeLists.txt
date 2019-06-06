@@ -2,8 +2,6 @@ project(breakout)
 
 cmake_minimum_required(VERSION 3.0)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
 include(FindPkgConfig)
 pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
@@ -11,24 +9,7 @@ pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 pkg_search_module(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
 
 file(GLOB SOURCES 
-  src/Ball.cpp  
-  src/Ball.hpp
-  src/Bounce.cpp
-  src/Bounce.hpp
-  src/GameInput.cpp
-  src/GameInput.hpp
-  src/GameScreen.cpp
-  src/GameScreen.hpp
-  src/Playground.cpp
-  src/Playground.hpp
-  src/Pad.cpp
-  src/Pad.hpp
-  src/Sprite.cpp
-  src/Sprite.hpp
-  src/Brick.cpp
-  src/Brick.hpp
-  src/Timer.cpp
-  src/Timer.hpp
+"src/*.c"
   )
 
 include_directories(
@@ -45,7 +26,7 @@ link_directories(
   ${SDL2MIXER_LIBRARY_DIRS}
   )
 
-add_executable(${PROJECT_NAME} ${SOURCES} src/main.cpp)
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}
   ${SDL2_LIBRARIES}
